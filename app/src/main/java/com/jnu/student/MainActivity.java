@@ -14,6 +14,27 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     private TextView textViewJnu;
     private TextView textViewHello;
+    public void onButtonClick(View view) {
+        textViewJnu = findViewById(R.id.text_view_jnu);
+        textViewHello = findViewById(R.id.text_view_hello);
+        String textJnu = textViewJnu.getText().toString();
+        String textHello = textViewHello.getText().toString();
+        textViewHello.setText(textJnu);
+        textViewJnu.setText(textHello);
+
+        Toast.makeText(MainActivity.this, "交换成功", Toast.LENGTH_SHORT).show();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setMessage("交换成功")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+
     }
 
 }
