@@ -6,50 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/text_view_hello"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:text="@string/hello"
-                android:textColor="@color/teal_700"
-                android:textSize="48sp"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/text_view_jnu"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:text="@string/jnu"
-                android:textColor="@color/teal_700"
-                android:textSize="48sp"
-                tools:ignore="MissingConstraints" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/button_change_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/change_text"
-            android:onClick="onButtonClick"
-            />
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
