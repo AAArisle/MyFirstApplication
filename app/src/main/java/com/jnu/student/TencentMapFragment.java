@@ -15,6 +15,9 @@ import com.tencent.tencentmap.mapsdk.maps.model.LatLng;
 import com.tencent.tencentmap.mapsdk.maps.model.Marker;
 import com.tencent.tencentmap.mapsdk.maps.model.MarkerOptions;
 
+import java.lang.reflect.Array;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link TencentMapFragment#newInstance} factory method to
@@ -72,15 +75,24 @@ public class TencentMapFragment extends Fragment {
 
         TencentMap tencentMap = mapView.getMap();
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ShopDownLoader dataLoader=new ShopDownLoader();
+                String shopJsonData= dataLoader.download("http://file.nidama.net/class/mobile_develop/data/bookstore2023.json");
+                List<ShopLocation> locations=dataLoader.parsonJson(shopJsonData);
+
+                TencentMapFragment.this.getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        AddMarkersOnMap(locations);
+                    }
+                });
+            }
+        }).start();
+
         LatLng point1 = new LatLng(22.255925,113.541112);
         tencentMap.moveCamera(CameraUpdateFactory.newLatLng(point1));
-
-        // 创建一个Marker对象
-        MarkerOptions markerOptions = new MarkerOptions(point1)
-                .title("暨南大学");
-
-        // 添加标记到地图上
-        Marker marker = tencentMap.addMarker(markerOptions);
 
         mapView.getMap().setOnMarkerClickListener(new TencentMap.OnMarkerClickListener() {
             @Override
@@ -91,6 +103,19 @@ public class TencentMapFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    private void AddMarkersOnMap(List<ShopLocation> locations) {
+        for (ShopLocation shop: locations) {
+            LatLng shopPoint = new LatLng(shop.getLatitude(),shop.getLongitude());
+
+            // 创建一个Marker对象
+            MarkerOptions markerOptions = new MarkerOptions(shopPoint).title(shop.getName());
+
+            // 添加标记到地图上
+            TencentMap tencentMap = mapView.getMap();
+            Marker marker = tencentMap.addMarker(markerOptions);
+        }
     }
 
     @Override
