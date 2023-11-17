@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
                         case 2:
                             tab.setText("地图");
                             break;
+                        case 3:
+                            tab.setText("时钟");
                     }
                 }).attach();
 
