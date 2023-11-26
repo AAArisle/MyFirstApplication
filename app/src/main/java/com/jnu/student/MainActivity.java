@@ -36,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case 3:
                             tab.setText("时钟");
+                            break;
+                        case 4:
+                            tab.setText("游戏");
+                            break;
                     }
                 }).attach();
 

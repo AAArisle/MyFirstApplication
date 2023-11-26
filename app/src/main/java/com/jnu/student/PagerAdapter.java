@@ -25,6 +25,8 @@ public class PagerAdapter extends FragmentStateAdapter {
                 return new TencentMapFragment(); // 地图Tab
             case 3:
                 return new ClockFragment(); // 时钟
+            case 4:
+                return new GameViewFragment(); // 游戏
             default:
                 return null;
         }
@@ -33,6 +35,6 @@ public class PagerAdapter extends FragmentStateAdapter {
     @Override
     public int getItemCount() {
         //Tab数目
-        return 4;
+        return 5;
     }
 }
