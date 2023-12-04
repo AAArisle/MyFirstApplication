@@ -18,6 +18,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.jnu.student.data.Book;
+import com.jnu.student.data.DataSaver;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -55,7 +58,12 @@ public class BookListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_book_list_main);
 
+        DataSaver dataSaver=new DataSaver();
+        bookList = dataSaver.Load(this.getContext());
 
+        if(bookList.size()==0) {
+            bookList.add(new Book("item 0", R.drawable.book_no_name));
+        }
     }
 
     @Override
@@ -83,6 +91,7 @@ public class BookListFragment extends Fragment {
                             String title = data.getStringExtra("title");
 //                            Toast.makeText(this,title,Toast.LENGTH_SHORT).show();
                             bookList.add(new Book(title, R.drawable.book_no_name));
+                            new DataSaver().Save(this.getContext(), (ArrayList<Book>) bookList);
                             adapter.notifyItemInserted(bookList.size());
                         }
                     }
@@ -104,6 +113,7 @@ public class BookListFragment extends Fragment {
                             int coverResourceId = data.getIntExtra("cover",R.drawable.book_2);
                             int id = data.getIntExtra("id",0);
                             bookList.set(id, new Book(title, coverResourceId));
+                            new DataSaver().Save(this.getContext(), (ArrayList<Book>) bookList);
                             adapter.notifyItemChanged(id);
                         }
                     }
@@ -142,6 +152,7 @@ public class BookListFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 bookList.remove(item.getOrder());
+                                new DataSaver().Save(BookListFragment.this.getContext(), (ArrayList<Book>) bookList);
                                 adapter.notifyItemRemoved(item.getOrder());
                             }
                         }).setNegativeButton("取消", new DialogInterface.OnClickListener() {

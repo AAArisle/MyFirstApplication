@@ -1,4 +1,4 @@
-package com.jnu.student;
+package com.jnu.student.data;
 
 public class ShopLocation {
     String name;
